@@ -1,0 +1,8 @@
+<mat-grid-list cols="4">
+  <mat-grid-tile *ngFor="let book of booksList">
+    <app-books-list-item
+      [bookWithPrefered]="book"
+      (togglePreference)="togglePreference($event)"
+    ></app-books-list-item>
+  </mat-grid-tile>
+</mat-grid-list>

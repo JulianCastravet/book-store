@@ -1,0 +1,79 @@
+<div *ngIf="book">
+  <mat-grid-list cols="2" rows="4">
+    <mat-grid-tile class="tile-class" *ngIf="book">
+      <div class="book-details">
+        <div class="book-details-title">{{ book.title | uppercase }}</div>
+        <div class="book-details-image">
+          <img src="{{ book.cover_image }}" alt="{{ book.title }}" />
+        </div>
+        <div class="book-details-author">Author: {{ book.author }}</div>
+        <div class="book-details-description-title">Book Description</div>
+        <div class="book-details-description-content">
+          {{ book.description }}
+        </div>
+        <div class="book-details-genre">
+          GENRE: {{ book.genre?.toString() | uppercase }}
+        </div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile class="book-form-details">
+      <div class="form-wrapper">
+        <div class="book-form-title">Contact Us for future orders!</div>
+
+        <form
+          [formGroup]="contactForm"
+          class="form-style"
+          (ngSubmit)="onSubmit()"
+        >
+          <mat-form-field>
+            <mat-label>Enter your name:</mat-label>
+            <input
+              matInput
+              placeholder="Your name"
+              [formControl]="contactForm.controls.name"
+              required
+            />
+            <ng-container
+              *ngIf="
+                contactForm.controls.name.touched &&
+                contactForm.controls.name.value?.length === 0
+              "
+            >
+              <mat-error>{{ getErrorMessage() }}</mat-error>
+            </ng-container>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Enter your email:</mat-label>
+            <input
+              matInput
+              placeholder="Your email"
+              required
+              [formControl]="contactForm.controls.email"
+            />
+            <ng-container
+              *ngIf="
+                contactForm.controls.email.touched &&
+                !contactForm.controls.email.valid
+              "
+            >
+              <mat-error>{{ getErrorMessage() }}</mat-error>
+            </ng-container>
+          </mat-form-field>
+          <button
+            mat-raised-button
+            color="primary"
+            lass="submit-button"
+            type="submit"
+            (click)="(onSubmit)"
+          >
+            Submit Form
+          </button>
+        </form>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<div *ngIf="!book">
+  <h1>Please select a book</h1>
+</div>

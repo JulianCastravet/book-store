@@ -1,0 +1,30 @@
+<button
+  mat-icon-button
+  class="pref_icon"
+  [matBadge]="preferedBooks.length"
+  matBadgePosition="after"
+  matBadgeColor="accent"
+  [matMenuTriggerFor]="menu"
+>
+  <mat-icon>favorite_border</mat-icon>
+</button>
+
+<mat-menu #menu="matMenu" class="menu">
+  <ng-container *ngIf="preferedBooks.length === 0">
+    <div mat-menu-item class="item-list">No products yet!</div>
+  </ng-container>
+  <div
+    mat-menu-item
+    class="item-list"
+    *ngFor="let book of preferedBooks"
+    [routerLink]="['/books', book.book.id]"
+  >
+    <span>{{ book.book.title }}</span>
+    <mat-icon
+      class="delete-icon"
+      (click)="deleteBookFromDD(book.book, $event)"
+      mat-icon-button
+      >delete</mat-icon
+    >
+  </div>
+</mat-menu>

@@ -1,0 +1,45 @@
+mat-grid-tile div.mat-grid-tile-content,
+mat-grid-tile div.mat-grid-tile-content {
+  align-items: flex-start !important;
+  display: block !important;
+}
+
+.book-details {
+  padding: 50px;
+  align-self: baseline;
+  &-title {
+    font-size: 30px;
+    text-decoration: underline;
+  }
+  &-image {
+    padding: 20px 0;
+  }
+  &-author {
+    color: rgb(235, 21, 21);
+  }
+  &-description-title {
+    font-size: 25px;
+    color: #585555;
+    padding: 20px 0;
+  }
+  &-description-content {
+    font-style: italic;
+  }
+}
+.form-wrapper {
+  width: 100%;
+  padding: 50px;
+  align-self: baseline;
+}
+.book-form-title {
+  text-align: center;
+  font-size: 24px;
+  padding: 20px 0;
+}
+.form-style {
+  display: flex;
+  flex-direction: column;
+  & .submit-button {
+    background-color: purple;
+  }
+}

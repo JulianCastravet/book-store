@@ -1,0 +1,9 @@
+.parent {
+  position: relative !important;
+  & .grid-list {
+    position: relative;
+    & .col {
+      position: relative !important;
+    }
+  }
+}

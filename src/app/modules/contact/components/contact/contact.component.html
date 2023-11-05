@@ -1,0 +1,8 @@
+<div class="parent">
+  <mat-grid-list cols="2" class="grid-list">
+    <app-books-list
+      [booksList]="bookList"
+      (togglePreferenceEvent)="toggleBook($event)"
+    ></app-books-list>
+  </mat-grid-list>
+</div>

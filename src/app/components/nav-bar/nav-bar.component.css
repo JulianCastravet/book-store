@@ -1,0 +1,35 @@
+.spacer {
+  flex: 1 1 auto;
+}
+mat-toolbar {
+  position: relative;
+  gap: 20px;
+}
+.logo {
+  background-image: url("../../../assets/logo3.png");
+  width: 150px;
+  height: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+mat-toolbar .pref_icon {
+  font-size: 24px;
+}
+
+.item-list {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+.delete-icon {
+  background: inherit;
+  transition: linear 0.2s;
+}
+.delete-icon:hover {
+  background: initial;
+  color: red
+}
+.link {
+  color: white;
+}
