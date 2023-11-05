@@ -1,0 +1,43 @@
+<div class="select_controllers">
+  <mat-form-field class="form-field">
+    <mat-label>Choose an option</mat-label>
+    <mat-select
+      matSelect
+      [(value)]="selectedBy"
+      (selectionChange)="changeFirstSelect($event)"
+    >
+      <mat-option value="all">All Books</mat-option>
+      <mat-option value="author">Author</mat-option>
+      <mat-option value="title">Title</mat-option>
+      <mat-option value="genre">Genre</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Insert value</mat-label>
+    <input
+      [disabled]="disabled"
+      matInput
+      [ngModel]="input"
+      placeholder=""
+      (ngModelChange)="findBook($event)"
+    />
+  </mat-form-field>
+  <mat-form-field class="form-field">
+    <mat-label>Choose an option</mat-label>
+    <mat-select
+      matSelect
+      [(value)]="selectBestSeller"
+      (selectionChange)="changeSecondSelect($event)"
+    >
+      <mat-option value="all">All Books</mat-option>
+      <mat-option value="bestSeller">BestSeller</mat-option>
+      <mat-option value="notBestSeller">Not BestSeller</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<app-books-list
+  [booksList]="booksList"
+  (togglePreferenceEvent)="togglePreference($event)"
+>
+</app-books-list>

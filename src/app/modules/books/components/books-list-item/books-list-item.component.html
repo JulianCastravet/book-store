@@ -1,0 +1,41 @@
+<mat-card appearance="raised" class="single-card">
+  <mat-card-content>
+    <div class="flex-header">
+      <ng-container>
+        <mat-icon
+          [ngStyle]="{ fontSize: '16px' }"
+          *ngIf="!bookWithPrefered.book.isBestSeller"
+          color="active"
+          title="Not A Besteller"
+          >star_border</mat-icon
+        >
+        <mat-icon
+          [ngStyle]="{ fontSize: '16px' }"
+          *ngIf="bookWithPrefered.book.isBestSeller"
+          color="warn"
+          title="Besteller"
+          >star</mat-icon
+        >
+      </ng-container>
+
+      <mat-card-header>{{
+        bookWithPrefered.book.title | uppercase
+      }}</mat-card-header>
+      <app-books-like-icon
+        [isPrefered]="bookWithPrefered.isPrefered"
+        (togglePreference)="iconClick()"
+      ></app-books-like-icon>
+    </div>
+    <img mat-card-image src="{{ bookWithPrefered.book.cover_image }}" />
+  </mat-card-content>
+  <mat-card-content>
+    Description:{{ bookWithPrefered.book.description }}
+  </mat-card-content>
+  <mat-card-content
+    >Author: {{ bookWithPrefered.book.author | uppercase }}</mat-card-content
+  >
+  <mat-card-content
+    >Genre:
+    {{ bookWithPrefered.book.genre?.toString() | uppercase }}</mat-card-content
+  >
+</mat-card>

@@ -1,0 +1,9 @@
+<div class="container">
+  <app-search-bar
+    (searchQuery)="searchFunction($event)"
+    (clearSearch)="clearSearch()"
+    [value]="title"
+    [selectBy]="authorOrTitle"
+    (selectionChange)="changeSelect($event)"
+  ></app-search-bar>
+</div>
