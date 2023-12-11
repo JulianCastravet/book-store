@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject, of, switchMap } from 'rxjs';
+import { Observable, Subject, of, switchMap } from 'rxjs';
 import { BookService } from '../../services';
 import { MatSelectChange } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
 import { BookWithPrefered } from '../../models/product';
+import { Store, Select } from '@ngxs/store';
+import {
+  GetBooksFromAPIAction,
+  ToggleBookAction,
+} from '../../Store/book-actions';
+import { BookState } from '../../Store/book-state';
+import { BookSelectors } from '../../Store/book-selectors';
 
 @Component({
   selector: 'app-books',
@@ -13,7 +20,9 @@ import { BookWithPrefered } from '../../models/product';
 export class BooksComponent implements OnInit {
   protected unsubscribe$: Subject<void> = new Subject();
   public booksList: BookWithPrefered[] = [];
-
+  @Select(BookSelectors.bookSelector) bookSelector$!: Observable<
+    BookWithPrefered[]
+  >;
   selectedBy = '';
   input = '';
   disabled = false;
@@ -21,16 +30,22 @@ export class BooksComponent implements OnInit {
   title = this.route.snapshot.queryParams['aOt'];
   name = this.route.snapshot.queryParams['name'];
 
-  constructor(private bookService: BookService, private route: ActivatedRoute) {
+  constructor(
+    private bookService: BookService,
+    private route: ActivatedRoute,
+    private store$: Store
+  ) {
     this.selectedBy = 'all';
     this.disabled = true;
+    this.store$.dispatch(new GetBooksFromAPIAction());
   }
 
   ngOnInit() {
     if (!this.title || !this.name) {
-      this.bookService
-        .getAllBooks()
-        .subscribe((books) => (this.booksList = books));
+      // this.store$
+      //   .dispatch(new GetBooksFromAPIAction())
+      //   .subscribe((data) => (this.booksList = data.BookStore.books));
+      this.bookSelector$.subscribe((data) => (this.booksList = data));
     } else {
       this.bookService
         .searchBooksWithBetterParams(this.title, this.name)
@@ -47,7 +62,8 @@ export class BooksComponent implements OnInit {
   }
 
   togglePreference(book: BookWithPrefered) {
-    this.bookService.toggleBook(book);
+    // this.bookService.toggleBook(book);
+    this.store$.dispatch(new ToggleBookAction(book));
   }
 
   changeFirstSelect(e?: MatSelectChange): string {

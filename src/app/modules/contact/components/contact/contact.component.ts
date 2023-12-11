@@ -1,6 +1,10 @@
+import { Store, Select } from '@ngxs/store';
 import { Component, OnInit } from '@angular/core';
 import { BookWithPrefered } from 'src/app/modules/books/models/product';
 import { BookService } from 'src/app/modules/books/services';
+import { ToggleBookAction } from 'src/app/modules/books/Store/book-actions';
+import { BookSelectors } from 'src/app/modules/books/Store/book-selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-contact',
@@ -9,14 +13,14 @@ import { BookService } from 'src/app/modules/books/services';
 })
 export class ContactComponent implements OnInit {
   public bookList!: BookWithPrefered[];
-  constructor(private bookService: BookService) {}
-
+  constructor(private bookService: BookService, private store$: Store) {}
+  @Select([BookSelectors.preferedBookSelector]) preferedBooks$!: Observable<
+    BookWithPrefered[]
+  >;
   ngOnInit(): void {
-    this.bookService
-      .getPreferedBooks()
-      .subscribe((books) => (this.bookList = books));
+    // this.preferedBooks$.subscribe((books) => console.log(books));
   }
   toggleBook(book: BookWithPrefered) {
-    this.bookService.toggleBook(book);
+    // this.store$.dispatch(new ToggleBookAction(book)).subscribe();
   }
 }

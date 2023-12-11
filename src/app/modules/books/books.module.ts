@@ -1,3 +1,4 @@
+import { Store } from '@ngxs/store';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BooksRoutingModule } from './books-routing.module';
@@ -53,5 +54,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatMenuModule,
     BooksListComponent,
   ],
+  providers: [],
 })
 export class BooksModule {}

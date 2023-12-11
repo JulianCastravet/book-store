@@ -1,9 +1,11 @@
+import { Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { Book, BookWithPrefered } from '../models';
 import { PREF_BOOK_LIST_KEY } from 'src/app/config/local-storage.config';
 import { StorageService } from './local-storage.service';
 import { BookAPIService } from './book-api.service';
+import { GetPreferedBooks } from '../Store/book-actions';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +17,8 @@ export class BookService {
 
   constructor(
     private storageService: StorageService,
-    private bookApi: BookAPIService
+    private bookApi: BookAPIService,
+    private store$: Store
   ) {
     this.getBooks();
   }
@@ -45,18 +48,19 @@ export class BookService {
   }
 
   getPreferedBooks(): Observable<BookWithPrefered[]> {
-    return this.bookState$.pipe(
-      map((books) => books.filter((book) => !!book.isPrefered))
-    );
+   return this.store$.dispatch(new GetPreferedBooks());
+    // return this.bookState$.pipe(
+    //   map((books) => books.filter((book) => !!book.isPrefered))
+    // );
   }
 
-  toggleBook(book: BookWithPrefered): void {
-    if (book.isPrefered) {
-      this.removeBook(book.book);
-      return;
-    }
-    this.addBook(book.book);
-  }
+  // toggleBook(book: BookWithPrefered): void {
+  //   if (book.isPrefered) {
+  //     this.removeBook(book.book);
+  //     return;
+  //   }
+  //   this.addBook(book.book);
+  // }
 
   addBook(book: Book): void {
     const prefered = this.storageService.getItem(PREF_BOOK_LIST_KEY);

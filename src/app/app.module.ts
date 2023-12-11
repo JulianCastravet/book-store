@@ -1,3 +1,4 @@
+import { NgxsModule } from '@ngxs/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -9,6 +10,7 @@ import {
 } from './components';
 import { AppComponent } from './app.component';
 import { HomeModule, BooksModule, ContactModule } from './modules';
+import { BookState } from './modules/books/Store/book-state';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { HomeModule, BooksModule, ContactModule } from './modules';
     MatToolbarModule,
     BrowserAnimationsModule,
     HomeModule,
+    NgxsModule.forRoot([BookState]),
   ],
   providers: [],
   bootstrap: [AppComponent],
